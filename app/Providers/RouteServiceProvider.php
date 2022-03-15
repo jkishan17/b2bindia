@@ -46,6 +46,26 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+
+            Route::prefix('jpanel')
+             ->middleware('web')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/jpanel/authentication.php'));
+
+            Route::prefix('jpanel')
+                ->middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/jpanel/dashboard.php'));
+
+            Route::prefix('jpanel')
+                ->middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/jpanel/settings.php'));
+                
+            Route::prefix('jpanel')
+                ->middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/jpanel/users.php'));
         });
     }
 
