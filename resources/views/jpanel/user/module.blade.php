@@ -26,12 +26,8 @@
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
-        {{-- <div class="row flash-message">
-            <div class="col-12">
-                @include('jpanel/flash-message')
-            </div>
-        </div> --}}
         <div class="row">
+            @if(hasPermission('modules',1))
             <div class="col-4">
                 <form action="{{ route('add.module') }}" method="post">
                     @csrf
@@ -77,6 +73,8 @@
                     <!-- /.card -->
                 </form>
             </div>
+            @endif
+           
             <div class="col-8">
                 <!-- Default box -->
                 <div class="card">
@@ -110,8 +108,12 @@
                                     <td>{{$module->name}}</td>
                                     <td>{{$module->slug}}</td>
                                     <td>
+                                        @if(hasPermission('modules',3))
                                         <a href="{{ route('edit.module',$module->id) }}" class="text-primary" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a> |
+                                        @endif
+                                        @if(hasPermission('modules',4))
                                         <a href="javascript:void(0)" data-id="{{$module->id}}" class="text-danger deleteModule" id="delete{{$module->id}}" name="delete{{$module->id}}" data-toggle="tooltip" data-placement="top" title="Trash"><i class="fas fa-trash"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

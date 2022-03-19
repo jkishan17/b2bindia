@@ -17,7 +17,11 @@ class RoleController extends Controller
     
     public function index(){
         $roles=Role::all();
-        return view('jpanel.user.role',['roles'=>$roles]);
+        $hasPermission = hasAnyOnePermission('roles');
+        if($hasPermission)
+            return view('jpanel.user.role',['roles'=>$roles]);
+        else
+            abort(403);
     }
 
     public function addRole(Request $request){
@@ -39,7 +43,11 @@ class RoleController extends Controller
     public function editRole($id){
         $role = Role::find($id);
         $modules=Module::all();
-        return view('jpanel.user.editRole',['role'=>$role,'modules'=>$modules]);
+        $hasPermission = hasPermission('roles',3);
+        if($hasPermission)
+            return view('jpanel.user.editRole',['role'=>$role,'modules'=>$modules]);
+        else
+            abort(403);
     }
 
     public function updateRole (Request $request,$role_id){

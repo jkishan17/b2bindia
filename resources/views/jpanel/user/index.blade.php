@@ -26,21 +26,20 @@
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
-        {{-- <div class="row flash-message">
-            <div class="col-12">
-                @include('jpanel/flash-message')
-            </div>
-        </div> --}}
+        
         <div class="row">
+            @if(hasPermission('users',2))
             <div class="col-12">
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Users List</h3>
                         <div class="card-tools">
+                            @if(hasPermission('users',1))
                             <a href="{{route('create.users')}}" class="btn btn-sm btn-secondary">
                                 <i class="fas fa-plus-square"></i> Add New User
                             </a>
+                            @endif
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
@@ -77,10 +76,17 @@
                                         </div>
                                     </td>
                                     <td>
+                                        @if(hasPermission('users',2))
                                         <a href="{{ route('view.user',$user->id) }}" class="text-success" data-toggle="tooltip" data-placement="top" title="View"><i class="fas fa-eye"></i></a> |
+                                        @endif
+                                        @if(hasPermission('users',3))
                                         <a href="{{ route('edit.user',$user->id) }}" class="text-primary" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a> |
+                                        <a href="{{ route('edit.user',$user->id) }}" class="text-primary" data-toggle="tooltip" data-placement="top" title="Role"><i class="fas fa-user-tag"></i></a> |
                                         <a href="{{ route('user.permissions',$user->id) }}" class="text-primary" data-toggle="tooltip" data-placement="top" title="Permissions"><i class="fas fa-list-alt"></i></a> |
+                                        @endif
+                                        @if(hasPermission('users',4))
                                         <a href="javascript:void(0)" data-id="{{$user->id}}" class="text-danger delete" id="delete{{$user->id}}" name="delete{{$user->id}}" data-toggle="tooltip" data-placement="top" title="Trash"><i class="fas fa-trash"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
@@ -105,6 +111,7 @@
                 </div>
                 <!-- /.card -->
             </div>
+            @endif
         </div>
     </div>
 </section>

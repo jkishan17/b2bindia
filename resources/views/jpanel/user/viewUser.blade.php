@@ -5,6 +5,7 @@
 
 @section('content')
 <!-- Content Header (Page header) -->
+@if(hasPermission('users',2))
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -30,6 +31,7 @@
             </div>
         </div>
         <div class="row">
+           
             <div class="col-12">
                 <!-- Default box -->
                  <!-- Profile Update box -->
@@ -81,12 +83,13 @@
                     <!-- /.card -->
                 </form>
             </div>
+            
         </div>
     </div>
 </section>
 <!-- /.content -->
 @endsection
-
+@endif
 @section('scripts')
     @include('jpanel.user.ajax')
 @endsection

@@ -60,7 +60,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::prefix('jpanel')
                 ->middleware('web')
                 ->namespace($this->namespace)
-                ->group(base_path('routes/jpanel/settings.php'));
+                ->group(base_path('routes/jpanel/profile.php'));
                 
             Route::prefix('jpanel')
                 ->middleware('web')

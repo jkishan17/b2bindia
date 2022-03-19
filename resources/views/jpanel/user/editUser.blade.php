@@ -27,12 +27,10 @@
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
-        {{-- <div class="row flash-message">
-            <div class="col-12">
-                @include('jpanel/flash-message')
-            </div>
-        </div> --}}
+        
+        @if(hasPermission('users',3))
         <div class="row">
+            
             <div class="col-6">
                 <!-- Default box -->
                  <!-- Profile Update box -->
@@ -167,6 +165,7 @@
                 </div>
             </div>
         </div>
+        @endif
     </div>
 </section>
 <!-- /.content -->

@@ -9,5 +9,5 @@ Route::get('/logout', '\App\Http\Controllers\Jpanel\Auth\AuthController@logout')
 Route::get('/forgot-password', 'App\Http\Controllers\Jpanel\Auth\ForgotPasswordController@index')->name('forgotPassword');
 Route::post('/post-forgot-password', 'App\Http\Controllers\Jpanel\Auth\ForgotPasswordController@forgotPasswordPost')->name('forgotPassword.post');
 // // -----------------------------reset password-----------------------------------------
-// Route::get('/reset-password/{token}', 'App\Http\Controllers\Jpanel\Auth\ResetPasswordController@index')->name('resetPassword');
-// Route::post('/post-reset-password', 'App\Http\Controllers\Jpanel\Auth\ResetPasswordController@resetPasswordPost')->name('resetPassword.post');
+ Route::get('/reset-password/{token}', 'App\Http\Controllers\Jpanel\Auth\ResetPasswordController@index')->name('resetPassword');
+ Route::post('/post-reset-password', 'App\Http\Controllers\Jpanel\Auth\ResetPasswordController@resetPasswordPost')->name('resetPassword.post');

@@ -26,12 +26,9 @@
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
-        {{-- <div class="row flash-message">
-            <div class="col-12">
-                @include('jpanel/flash-message')
-            </div>
-        </div> --}}
+        
         <div class="row">
+            @if(hasPermission('roles',1))
             <div class="col-4">
                 <form action="{{ route('add.role') }}" method="post">
                     @csrf
@@ -77,6 +74,7 @@
                     <!-- /.card -->
                 </form>
             </div>
+            @endif
             <div class="col-8">
                 <!-- Default box -->
                 <div class="card">
@@ -110,8 +108,13 @@
                                     <td>{{$role->name}}</td>
                                     <td>{{$role->slug}}</td>
                                     <td>
-                                        <a href="{{ route('edit.role',$role->id) }}" class="text-primary" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a> |
-                                        <a href="javascript:void(0)" data-id="{{$role->id}}" class="text-danger deleteRole" id="delete{{$role->id}}" name="delete{{$role->id}}" data-toggle="tooltip" data-placement="top" title="Trash"><i class="fas fa-trash"></i></a>
+                                        @if(hasPermission('roles',3))
+                                            <a href="{{ route('edit.role',$role->id) }}" class="text-primary" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a> |
+                                            <a href="{{ route('edit.role',$role->id) }}" class="text-primary" data-toggle="tooltip" data-placement="top" title="Module"><i class="fas fa-box"></i></a>  |
+                                        @endif
+                                        @if(hasPermission('roles',4))
+                                            <a href="javascript:void(0)" data-id="{{$role->id}}" class="text-danger deleteRole" id="delete{{$role->id}}" name="delete{{$role->id}}" data-toggle="tooltip" data-placement="top" title="Trash"><i class="fas fa-trash"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

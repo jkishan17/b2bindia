@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth']], function () {
+    
     // -------------------- Users --------------------------------------------------
     Route::get('/users', 'App\Http\Controllers\Jpanel\User\UserController@index')->name('list.users');
     Route::get('/create-users', 'App\Http\Controllers\Jpanel\User\UserController@createUsers')->name('create.users');
@@ -11,6 +12,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/view-user/{id}', 'App\Http\Controllers\Jpanel\User\UserController@viewUser')->name('view.user');
     Route::post('/user-status-change', 'App\Http\Controllers\Jpanel\User\UserController@userStatusChange')->name('status.change.user');
     Route::post('/user-delete', 'App\Http\Controllers\Jpanel\User\UserController@userDelete')->name('user.delete');
+    
 
     // -------------------- Role --------------------------------------------------
     Route::get('/role', 'App\Http\Controllers\Jpanel\User\RoleController@index')->name('list.role');

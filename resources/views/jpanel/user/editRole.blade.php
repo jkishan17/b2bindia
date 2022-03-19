@@ -27,12 +27,8 @@
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
-        {{-- <div class="row flash-message">
-            <div class="col-12">
-                @include('jpanel/flash-message')
-            </div>
-        </div> --}}
         <div class="row">
+            @if(hasPermission('roles',3))
             <div class="col-4">
                 <form action="{{ route('update.role',$role->id) }}" method="post">
                     @csrf
@@ -79,15 +75,18 @@
                     <!-- /.card -->
                 </form>
             </div>
+            
             <div class="col-8">
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Assign Module For <span class="text-success">{{$role->name}}</span></h3>
                         <div class="card-tools">
+                            @if(hasPermission('roles',1))
                             <a href="{{route('list.role')}}" class="btn btn-sm btn-secondary">
                                 <i class="fas fa-plus-square"></i> Add New Role
                             </a>
+                            @endif
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
@@ -144,6 +143,7 @@
                 </div>
                 <!-- /.card -->
             </div>
+            @endif
         </div>
     </div>
 </section>

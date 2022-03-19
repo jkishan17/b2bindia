@@ -27,12 +27,9 @@
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
-        {{-- <div class="row flash-message">
-            <div class="col-12">
-                @include('jpanel/flash-message')
-            </div>
-        </div> --}}
+        
         <div class="row">
+            @if(hasPermission('modules',3))
             <div class="col-4">
                 <form action="{{ route('update.module',$emodule->id) }}" method="post">
                     @csrf
@@ -79,15 +76,18 @@
                     <!-- /.card -->
                 </form>
             </div>
+            @endif
             <div class="col-8">
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Module List</h3>
                         <div class="card-tools">
+                            @if(hasPermission('modules',1))
                             <a href="{{route('list.module')}}" class="btn btn-sm btn-secondary">
                                 <i class="fas fa-plus-square"></i> Add New Module
                             </a>
+                            @endif
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
@@ -115,8 +115,12 @@
                                     <td>{{$module->name}}</td>
                                     <td>{{$module->slug}}</td>
                                     <td>
+                                        @if(hasPermission('modules',3))
                                         <a href="{{ route('edit.module',$module->id) }}" class="text-primary" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a> |
+                                        @endif
+                                        @if(hasPermission('modules',4))
                                         <a href="javascript:void(0)" data-id="{{$module->id}}" class="text-danger deleteModule" id="delete{{$module->id}}" name="delete{{$module->id}}" data-toggle="tooltip" data-placement="top" title="Trash"><i class="fas fa-trash"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

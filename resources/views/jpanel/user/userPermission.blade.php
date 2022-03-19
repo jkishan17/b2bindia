@@ -27,11 +27,7 @@
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
-        {{-- <div class="row flash-message">
-            <div class="col-12">
-                @include('jpanel/flash-message')
-            </div>
-        </div> --}}
+        @if(hasPermission('users',3))
         <div class="row">
             <div class="col-12">
                 <!-- Default box -->
@@ -53,10 +49,10 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Modules</th>
-                                    <th>Add</th>
-                                    <th>View</th>
-                                    <th>Update</th>
-                                    <th>Delete</th>
+                                    <th>Add [1]</th>
+                                    <th>View [2]</th>
+                                    <th>Update [3]</th>
+                                    <th>Delete [4]</th>
                                 </tr>
                             </thead>
                             <tbody>    
@@ -126,22 +122,23 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Modules</th>
-                                    <th>Add</th>
-                                    <th>View</th>
-                                    <th>Update</th>
-                                    <th>Delete</th>
+                                    <th>Add [1]</th>
+                                    <th>View [2]</th>
+                                    <th>Update [3]</th>
+                                    <th>Delete [4]</th>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        
+                        {{-- <p> For Developers: check permission function: hasPermission(module_slug,action_id): Use 1 for Add, 2 for view, 3 for update and 4 for delete </p> --}}
                     </div>
                     <!-- /.card-footer-->
                 </div>
             </div>
         </div>
+        @endif
     </div>
 </section>
 <!-- /.content -->

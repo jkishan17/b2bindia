@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class SettingsController extends Controller
+class ProfileController extends Controller
 {
     //
     public function index()
     {
-        return view('jpanel.settings');
+        return view('jpanel.profile');
     }
     public function profileUpdate(Request $request)
     {
@@ -27,9 +27,9 @@ class SettingsController extends Controller
         
         $user = User::where('id', $user_id)->update(['name' => $request->uname, 'username' => $request->username, 'phone' => $request->phone, 'email' => $request->email]);
         if ($user) {
-            return redirect('jpanel/settings')->with('success', 'Your profile has been changed!');
+            return redirect('jpanel/profile')->with('success', 'Your profile has been changed!');
         } else {
-            return redirect('jpanel/settings')->with('error', 'Something went wrong. Try again.');
+            return redirect('jpanel/profile')->with('error', 'Something went wrong. Try again.');
         }
     }
     public function passwordUpdate(Request $request)
@@ -42,9 +42,9 @@ class SettingsController extends Controller
         
         $user = User::where('id', $user_id)->update(['password' =>  Hash::make($request->password)]);
         if ($user) {
-            return redirect('jpanel/settings')->with('success', 'Your password has been changed!');
+            return redirect('jpanel/profile')->with('success', 'Your password has been changed!');
         } else {
-            return redirect('jpanel/settings')->with('error', 'Something went wrong. Try again.');
+            return redirect('jpanel/profile')->with('error', 'Something went wrong. Try again.');
         }
     }
     public function profileImageUpdate(Request $request)
@@ -58,9 +58,9 @@ class SettingsController extends Controller
         $request->avatar->storeAs('public/images/userProfile', $imageName);
         $user = User::where('id', $user_id)->update(['avatar' => $imageName]);
         if ($user) {
-            return redirect('jpanel/settings')->with('success', 'Your profile image has been changed!');
+            return redirect('jpanel/profile')->with('success', 'Your profile image has been changed!');
         } else {
-            return redirect('jpanel/settings')->with('error', 'Something went wrong. Try again.');
+            return redirect('jpanel/profile')->with('error', 'Something went wrong. Try again.');
         }
     }
 }

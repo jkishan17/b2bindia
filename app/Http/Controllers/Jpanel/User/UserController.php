@@ -17,12 +17,21 @@ class UserController extends Controller
     //
     public function index(){
         $users=User::all();
-        return view('jpanel.user.index',['users'=>$users]);
+        $hasPermission = hasPermission('users',2);
+        if($hasPermission)
+            return view('jpanel.user.index',['users'=>$users]);
+        else
+            abort(403);
+        
     }
 
     
     public function createUsers(Request $request){
+        $hasPermission = hasPermission('users',1);
+        if($hasPermission)
         return view('jpanel.user.createUser');
+        else
+            abort(403);
     }
 
     public function addUser(Request $request){
@@ -49,7 +58,11 @@ class UserController extends Controller
     public function editUser($id){
         $user = User::find($id);
         $roles= Role::all();
-        return view('jpanel.user.editUser', ['user'=>$user,'roles'=>$roles]);
+        $hasPermission = hasPermission('users',3);
+        if($hasPermission)
+            return view('jpanel.user.editUser', ['user'=>$user,'roles'=>$roles]);
+        else
+            abort(403);
     }
 
     public function updateUser(Request $request,$user_id){
@@ -70,7 +83,11 @@ class UserController extends Controller
     
     public function viewUser($id){
         $user = User::find($id);
-        return view('jpanel.user.viewUser', compact('user'));
+        $hasPermission = hasPermission('users',2);
+        if($hasPermission)
+            return view('jpanel.user.viewUser', compact('user'));
+        else
+            abort(403);
     }
 
     public function userRole(Request $request){

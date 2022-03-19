@@ -13,7 +13,11 @@ class ModuleController extends Controller
     //
     public function index(){
         $module=Module::all();
-        return view('jpanel.user.module',['modules'=>$module]);
+        $hasPermission = hasAnyOnePermission('modules');
+        if($hasPermission)
+            return view('jpanel.user.module',['modules'=>$module]);
+        else
+            abort(403);
     }
 
     public function addModule(Request $request){
@@ -35,7 +39,11 @@ class ModuleController extends Controller
     public function editModule($id){
         $module=Module::all();
         $emodule = Module::find($id);
-        return view('jpanel.user.editModule', compact('emodule'),['modules'=>$module]);
+        $hasPermission = hasPermission('modules',3);
+        if($hasPermission)
+            return view('jpanel.user.editModule', compact('emodule'),['modules'=>$module]);
+        else
+            abort(403);
     }
 
     public function updateModule (Request $request,$module_id){
