@@ -83,9 +83,12 @@ class UserController extends Controller
     
     public function viewUser($id){
         $user = User::find($id);
+        $roles = $user->roles;
+        $module = Module::all();
+        $permissions= Permission::where('user_id', $id)->get();
         $hasPermission = hasPermission('users',2);
         if($hasPermission)
-            return view('jpanel.user.viewUser', compact('user'));
+            return view('jpanel.user.viewUser', ['user'=>$user,'roles'=>$roles,'modules'=>$module,'permissions'=>$permissions]);
         else
             abort(403);
     }

@@ -10,6 +10,7 @@ use App\Models\User;
 class AuthController extends Controller
 {
     //
+
     public function index(){
         if (Auth::check()) {
             return view('jpanel.dashboard');

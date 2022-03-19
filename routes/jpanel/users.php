@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth']], function () {
-    
+
     // -------------------- Users --------------------------------------------------
     Route::get('/users', 'App\Http\Controllers\Jpanel\User\UserController@index')->name('list.users');
     Route::get('/create-users', 'App\Http\Controllers\Jpanel\User\UserController@createUsers')->name('create.users');
