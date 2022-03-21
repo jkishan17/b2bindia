@@ -125,7 +125,7 @@
                with font-awesome or any other icon font library -->
                         @if(hasAnyOnePermission('dashboard'))
                         <li class="nav-item">
-                            <a href="{{ route('dashboard') }}" class="nav-link">
+                            <a href="{{ route('dashboard') }}" class="nav-link {{ (request()->is('jpanel/dashboard')) ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -133,45 +133,30 @@
                             </a>
                         </li>
                         @endif
-                        {{-- <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
+                        <li class="nav-item {{ (request()->is('jpanel/category*')) ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link {{ (request()->is('jpanel/category*')) ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-boxes"></i>
                                 <p>
-                                    Users
+                                    Catalog
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('list.module') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Module Master</p>
+                                    <a href="{{ route('list.category') }}" class="nav-link {{ (request()->is('jpanel/category')) ? 'active' : '' }}">
+                                        <i class="far fa-list-alt nav-icon"></i>
+                                        <p>Category List</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('list.role') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Role Master</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <hr class="dotted">
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('list.users') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>View Users</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('create.users') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add New User</p>
+                                    <a href="{{ route('create.category') }}" class="nav-link {{ (request()->is('jpanel/category/add')) ? 'active' : '' }}">
+                                        <i class="far fa-plus-square nav-icon"></i>
+                                        <p>Category Add</p>
                                     </a>
                                 </li>
                                 
                             </ul>
-                        </li> --}}
+                        </li> 
                         
                         {{-- <li class="nav-item">
                             <a href="#" class="nav-link">

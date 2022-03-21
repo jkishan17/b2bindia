@@ -28,23 +28,7 @@
                     @include('jpanel/flash-message')
                 </div>
             </div>
-            <div class="row">
-                
-                <div class="col-6">
-                    <a class="btn btn-app bg-secondary">
-                        <i class="fas fa-box"></i> Module
-                    </a>
-                    <a class="btn btn-app bg-secondary">
-                        <i class="fas fa-user-tag"></i> Roles
-                    </a>
-                    <a class="btn btn-app bg-secondary">
-                        <i class="fas fa-user-alt"></i> Users
-                    </a>
-                </div>
-                <div class="col-6">
-                    
-                </div>
-            </div>
+            
             <div class="row">
                 <div class="col-6">
                      <!-- Profile Update box -->
