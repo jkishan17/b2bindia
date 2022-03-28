@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Jpanel\Catalog;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Image;
 
 class CategoryController extends Controller
 {
@@ -113,6 +115,100 @@ class CategoryController extends Controller
             return redirect('jpanel/category/edit'.$request->id)->with('error', 'Something went wrong. Try again.');
         
     }
+
+    //  Update Short and Long Description
+    public function updateCategoryDescription(Request $request)
+    {
+        $request->validate([
+            'shortDescription' => 'required',
+            'longDescription' => 'required',
+        ]);
+        
+        $category = Category::where('id', $request->id)->update(['shortDescription' => $request->shortDescription, 'longDescription' => $request->longDescription]);
+        if ($category) 
+            return redirect('jpanel/category/edit/'.$request->id)->with('success', 'Category has been updated!');
+        else 
+            return redirect('jpanel/category/edit'.$request->id)->with('error', 'Something went wrong. Try again.');
+        
+    }
+
+    //  Update Meta Data
+    public function updateCategoryMeta(Request $request)
+    {
+        $request->validate([
+            'metaTitle' => 'required',
+        ]);
+        
+        $category = Category::where('id', $request->id)->update(['metaTitle' => $request->metaTitle, 'metaKeyword' => $request->metaKeyword,'metaDescription' => $request->metaDescription]);
+        if ($category) 
+            return redirect('jpanel/category/edit/'.$request->id)->with('success', 'Category has been updated!');
+        else 
+            return redirect('jpanel/category/edit'.$request->id)->with('error', 'Something went wrong. Try again.');
+    }
+
+    //  Update Thumbnail  Image
+    public function updateCategoryThumbnail(Request $request)
+    {
+        
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $image = $request->file('avatar');
+         $thumbnailPath = storage_path('app/public/images/category/th/');
+         $imageName = time().'.'.$image->getClientOriginalExtension();
+         $size_x = null;
+         $size_y= 100;
+         resizeImage($image,$thumbnailPath,$imageName,$size_x,$size_y);
+        $request->avatar->storeAs('public/images/category', $imageName);
+        $user = Category::where('id', $request->id)->update(['thumbnailImage' => $imageName]);
+        if ($user) {
+            return redirect('jpanel/category/edit/'.$request->id)->with('success', 'Thumbnail image has been changed!');
+        } else {
+            return redirect('jpanel/category/edit/'.$request->id)->with('error', 'Something went wrong. Try again.');
+        }
+    }
+
+     //  Update Icon  Image
+     public function updateCategoryIcon(Request $request)
+     {
+         $request->validate([
+             'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+         ]);
+         $image = $request->file('icon');
+         $thumbnailPath = storage_path('app/public/images/category/icon/th/');
+         $imageName = time().'.'.$image->getClientOriginalExtension();
+         $size_x = null;
+         $size_y= 100;
+         resizeImage($image,$thumbnailPath,$imageName,$size_x,$size_y);
+         $request->icon->storeAs('public/images/category/icon', $imageName);
+         $user = Category::where('id', $request->id)->update(['iconImage' => $imageName]);
+         if ($user) {
+             return redirect('jpanel/category/edit/'.$request->id)->with('success', 'Icon image has been changed!');
+         } else {
+             return redirect('jpanel/category/edit/'.$request->id)->with('error', 'Something went wrong. Try again.');
+         }
+     }
+
+     //  Update Cover  Image
+     public function updateCategoryCover(Request $request)
+     {
+         $request->validate([
+             'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+         ]);
+         $image = $request->file('cover');
+         $thumbnailPath = storage_path('app/public/images/category/cover/th/');
+         $imageName = time().'.'.$image->getClientOriginalExtension();
+         $size_x = null;
+         $size_y= 100;
+         resizeImage($image,$thumbnailPath,$imageName,$size_x,$size_y);
+         $request->cover->storeAs('public/images/category/cover', $imageName);
+         $user = Category::where('id', $request->id)->update(['coverImage' => $imageName]);
+         if ($user) {
+             return redirect('jpanel/category/edit/'.$request->id)->with('success', 'Cover image has been changed!');
+         } else {
+             return redirect('jpanel/category/edit/'.$request->id)->with('error', 'Something went wrong. Try again.');
+         }
+     }
 
     /**
      * Remove the specified resource from storage.

@@ -117,7 +117,7 @@
 
                             <div class="card-body">
                                 <div class="form-group">
-                                    <img height="80px" src="{{ asset('/storage/images/userProfile/'.Auth::getUser()->avatar) }}" class="img-circle elevation-2 mb-4 p-2">
+                                    <img height="80px" src="{{ asset('/storage/images/userProfile/th/'.Auth::getUser()->avatar) }}" class="img-circle elevation-2 mb-4 p-2">
                                     <input type="file" name="avatar" class="form-control @error('avatar') is-invalid @enderror" >
                                     @if ($errors->has('avatar'))
                                         <div class="text-danger">{{ $errors->first('avatar') }}</div>

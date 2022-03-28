@@ -54,7 +54,12 @@ class ProfileController extends Controller
         $request->validate([
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $imageName = time().'.'.$request->avatar->extension();
+        $image = $request->file('avatar');
+         $thumbnailPath = storage_path('app/public/images/userProfile/th/');
+         $imageName = time().'.'.$image->getClientOriginalExtension();
+         $size_x = null;
+         $size_y= 80;
+         resizeImage($image,$thumbnailPath,$imageName,$size_x,$size_y);
         $request->avatar->storeAs('public/images/userProfile', $imageName);
         $user = User::where('id', $user_id)->update(['avatar' => $imageName]);
         if ($user) {

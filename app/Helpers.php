@@ -3,6 +3,7 @@ use Carbon\Carbon;
 use App\Models\Module;
 use App\Models\Permission;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 // 
 if (! function_exists('convertLocalToUTC')) {
     function convertLocalToUTC($time)
@@ -46,6 +47,21 @@ if (! function_exists('hasPermission')) {
         $permission = Permission::where('user_id', '=', $user_id)->where('module_id', '=', $module_id)->where('action_id', '=', $action_id)->get()->first();
         $myPermission = ((!empty($permission)) ? 1 : 0);
         return $myPermission;
+    }
+}
+
+if (! function_exists('resizeImage')) {
+    function resizeImage($image,$image_path,$imageName,$size_x,$size_h)
+    {
+        $img = Image::make($image);
+        if (!File::exists($image_path)) {
+            File::makeDirectory($image_path);
+        }
+         $img->resize($size_x, $size_h, function($constraint) {
+            $constraint->aspectRatio();
+        });
+        $img->save($image_path.$imageName);
+        return true;
     }
 }
 
