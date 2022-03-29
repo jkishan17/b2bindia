@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Module;
+use App\Models\Language;
 class DashboardController extends Controller
 {
     //
@@ -16,7 +17,8 @@ class DashboardController extends Controller
         $totalModule = Module::all()->count();
         $totalRole = Role::all()->count();
         $totalUser = User::all()->count();
-        return view('jpanel.adminSettings',['totalModule'=>$totalModule,'totalRole'=>$totalRole,'totalUser'=>$totalUser]);
+        $totalLanguage = Language::all()->count();
+        return view('jpanel.adminSettings',['totalModule'=>$totalModule,'totalLanguage'=>$totalLanguage,'totalRole'=>$totalRole,'totalUser'=>$totalUser]);
     }
     
 }

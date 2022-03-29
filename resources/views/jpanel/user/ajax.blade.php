@@ -204,5 +204,40 @@
             }
           });
         })
+
+
+        //DELETE Language
+        $(".deleteLanguage").on('click', function(e){
+            e.preventDefault(); 
+            let lang_id = $(this).data('id');
+            swal({
+              title: `Are you sure you want to delete this record?`,
+              text: "If you delete this, it will be gone forever.",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-Token': '{{ csrf_token() }}',
+                    },
+                    type: "POST",
+                    dataType: "json",
+                    url: '{{route("language.delete")}}',
+                    data: {'lang_id': lang_id},
+                    success: function(data){
+                        if(data.status=="success"){
+                            var selector=".flash-message .messageArea";
+                            var message_status="success";
+                            var message_data="Language has been deleted successfully!";
+                            alertMessage(selector,message_status,message_data);
+                            $('.dataRow'+lang_id).hide();
+                        }
+                    }
+                });
+            }
+          });
+        })
     });
     </script>

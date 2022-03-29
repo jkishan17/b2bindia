@@ -133,6 +133,7 @@
                             </a>
                         </li>
                         @endif
+                        
                         <li class="nav-item {{ (request()->is('jpanel/category*')) ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ (request()->is('jpanel/category*')) ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-boxes"></i>
@@ -141,6 +142,7 @@
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
+                            @if(hasAnyOnePermission('category'))
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('list.category') }}" class="nav-link {{ (request()->is('jpanel/category')) ? 'active' : '' }}">
@@ -154,8 +156,8 @@
                                         <p>Category Add</p>
                                     </a>
                                 </li>
-                                
                             </ul>
+                            @endif
                         </li> 
                         
                         {{-- <li class="nav-item">
@@ -795,7 +797,7 @@
             <!-- /.sidebar -->
 
             <div class="sidebar-custom">
-                @if(hasAnyOnePermission('modules')||hasAnyOnePermission('users')||hasAnyOnePermission('roles'))
+                @if(hasAnyOnePermission('modules')||hasAnyOnePermission('users')||hasAnyOnePermission('roles')||hasAnyOnePermission('language'))
                 <a href="{{ route('admin.settings') }}" class="btn btn-link text-white" data-toggle="tooltip" title="AdminSttings"><i class="fas fa-cogs"></i></a>
                 @endif
                 <a href="{{ route('logout') }}" class="btn btn-link text-white pos-right" data-toggle="tooltip" title="Logout"><i class="fas fa-sign-out-alt"></i></a>

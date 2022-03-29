@@ -21,6 +21,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/update-role/{id}', 'App\Http\Controllers\Jpanel\User\RoleController@updateRole')->name('update.role');
     Route::post('/role-delete', 'App\Http\Controllers\Jpanel\User\RoleController@roleDelete')->name('role.delete');
 
+      // -------------------- Language --------------------------------------------------
+      Route::get('/language', 'App\Http\Controllers\Jpanel\User\LanguageController@index')->name('list.language');
+      Route::post('/add-language', 'App\Http\Controllers\Jpanel\User\LanguageController@addLanguage')->name('add.language');
+      Route::get('/edit-language/{id}', 'App\Http\Controllers\Jpanel\User\LanguageController@editLanguage')->name('edit.language');
+      Route::put('/update-language/{id}', 'App\Http\Controllers\Jpanel\User\LanguageController@updateLanguage')->name('update.language');
+      Route::post('/language-delete', 'App\Http\Controllers\Jpanel\User\LanguageController@languageDelete')->name('language.delete');
+
     // -------------------- Permission --------------------------------------------------
     Route::get('/module', 'App\Http\Controllers\Jpanel\User\ModuleController@index')->name('list.module');
     Route::post('/add-module', 'App\Http\Controllers\Jpanel\User\ModuleController@addModule')->name('add.module');
