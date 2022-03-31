@@ -107,13 +107,13 @@ class CategoryController extends Controller
         $request->validate([
             'cname' => 'required|unique:categories,name,'.$request->id,
         ]);
-        
+
         $category = Category::where('id', $request->id)->update(['name' => $request->cname, 'parent_id' => $request->parent_id]);
-        if ($category) 
+        if ($category)
             return redirect('jpanel/category/edit/'.$request->id)->with('success', 'Category has been updated!');
-        else 
+        else
             return redirect('jpanel/category/edit'.$request->id)->with('error', 'Something went wrong. Try again.');
-        
+
     }
 
     //  Update Short and Long Description
@@ -123,13 +123,13 @@ class CategoryController extends Controller
             'shortDescription' => 'required',
             'longDescription' => 'required',
         ]);
-        
+
         $category = Category::where('id', $request->id)->update(['shortDescription' => $request->shortDescription, 'longDescription' => $request->longDescription]);
-        if ($category) 
+        if ($category)
             return redirect('jpanel/category/edit/'.$request->id)->with('success', 'Category has been updated!');
-        else 
+        else
             return redirect('jpanel/category/edit'.$request->id)->with('error', 'Something went wrong. Try again.');
-        
+
     }
 
     //  Update Meta Data
@@ -138,28 +138,28 @@ class CategoryController extends Controller
         $request->validate([
             'metaTitle' => 'required',
         ]);
-        
+
         $category = Category::where('id', $request->id)->update(['metaTitle' => $request->metaTitle, 'metaKeyword' => $request->metaKeyword,'metaDescription' => $request->metaDescription]);
-        if ($category) 
+        if ($category)
             return redirect('jpanel/category/edit/'.$request->id)->with('success', 'Category has been updated!');
-        else 
+        else
             return redirect('jpanel/category/edit'.$request->id)->with('error', 'Something went wrong. Try again.');
     }
 
     //  Update Thumbnail  Image
     public function updateCategoryThumbnail(Request $request)
     {
-        
+
         $request->validate([
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $image = $request->file('avatar');
          $thumbnailPath = storage_path('app/public/images/category/th/');
+         $mainImagePath = storage_path('app/public/images/category/');
          $imageName = time().'.'.$image->getClientOriginalExtension();
          $size_x = null;
          $size_y= 100;
-         resizeImage($image,$thumbnailPath,$imageName,$size_x,$size_y);
-        $request->avatar->storeAs('public/images/category', $imageName);
+         resizeImage($image,$thumbnailPath,$mainImagePath,$imageName,$size_x,$size_y);
         $user = Category::where('id', $request->id)->update(['thumbnailImage' => $imageName]);
         if ($user) {
             return redirect('jpanel/category/edit/'.$request->id)->with('success', 'Thumbnail image has been changed!');
@@ -176,11 +176,11 @@ class CategoryController extends Controller
          ]);
          $image = $request->file('icon');
          $thumbnailPath = storage_path('app/public/images/category/icon/th/');
+         $mainImagePath = storage_path('app/public/images/category/icon/');
          $imageName = time().'.'.$image->getClientOriginalExtension();
          $size_x = null;
          $size_y= 100;
-         resizeImage($image,$thumbnailPath,$imageName,$size_x,$size_y);
-         $request->icon->storeAs('public/images/category/icon', $imageName);
+         resizeImage($image,$thumbnailPath,$mainImagePath,$imageName,$size_x,$size_y);
          $user = Category::where('id', $request->id)->update(['iconImage' => $imageName]);
          if ($user) {
              return redirect('jpanel/category/edit/'.$request->id)->with('success', 'Icon image has been changed!');
@@ -197,11 +197,11 @@ class CategoryController extends Controller
          ]);
          $image = $request->file('cover');
          $thumbnailPath = storage_path('app/public/images/category/cover/th/');
+         $mainImagePath = storage_path('app/public/images/category/cover');
          $imageName = time().'.'.$image->getClientOriginalExtension();
          $size_x = null;
          $size_y= 100;
-         resizeImage($image,$thumbnailPath,$imageName,$size_x,$size_y);
-         $request->cover->storeAs('public/images/category/cover', $imageName);
+         resizeImage($image,$thumbnailPath,$mainImagePath,$imageName,$size_x,$size_y);
          $user = Category::where('id', $request->id)->update(['coverImage' => $imageName]);
          if ($user) {
              return redirect('jpanel/category/edit/'.$request->id)->with('success', 'Cover image has been changed!');
@@ -220,7 +220,7 @@ class CategoryController extends Controller
     {
         $categories = Category::where('parent_id', $request->category_id)->get();
        $category = Category::where('id', $request->category_id)->delete();
-        if ($category) 
+        if ($category)
             return response()->json(['status'=>'success','message' => 'Category has been deleted successfully!','categories'=>$categories]);
         else
             return response()->json(['status'=>'error','message' => 'Something went wrong. Try again.']);
@@ -241,5 +241,5 @@ class CategoryController extends Controller
         $category->save();
         return response()->json(['status'=>'success','message' => 'Status has been changed successfully!']);
     }
-    
+
 }

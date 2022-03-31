@@ -4,7 +4,7 @@ use App\Models\Module;
 use App\Models\Permission;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-// 
+//
 if (! function_exists('convertLocalToUTC')) {
     function convertLocalToUTC($time)
     {
@@ -51,16 +51,18 @@ if (! function_exists('hasPermission')) {
 }
 
 if (! function_exists('resizeImage')) {
-    function resizeImage($image,$image_path,$imageName,$size_x,$size_h)
+    function resizeImage($image,$thumbnailPath,$mainImagePath,$imageName,$size_x,$size_h)
     {
-        $img = Image::make($image);
-        if (!File::exists($image_path)) {
-            File::makeDirectory($image_path);
+        $thumbnailImg = Image::make($image);
+        $mainImg = Image::make($image);
+        if (!File::exists($thumbnailPath)) {
+            File::makeDirectory($thumbnailPath,0755,true,true);
         }
-         $img->resize($size_x, $size_h, function($constraint) {
+         $thumbnailImg->resize($size_x, $size_h, function($constraint) {
             $constraint->aspectRatio();
         });
-        $img->save($image_path.$imageName);
+        $thumbnailImg->save($thumbnailPath.$imageName);
+        $mainImg->save($mainImagePath.$imageName);
         return true;
     }
 }
