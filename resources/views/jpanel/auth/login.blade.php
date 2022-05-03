@@ -18,7 +18,7 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="#" class="h1"><b>Lara</b>Admin</a>
+                <a href="#" class="h1">{{env('APP_NAME')}}</a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>

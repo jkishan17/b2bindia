@@ -61,7 +61,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/jpanel/profile.php'));
-                
+
             Route::prefix('jpanel')
                 ->middleware('web')
                 ->namespace($this->namespace)
@@ -71,6 +71,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/jpanel/catalog.php'));
+
+            Route::prefix('jpanel')
+                ->middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/jpanel/vendor.php'));
         });
     }
 

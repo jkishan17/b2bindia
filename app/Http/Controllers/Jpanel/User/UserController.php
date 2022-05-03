@@ -22,10 +22,10 @@ class UserController extends Controller
             return view('jpanel.user.index',['users'=>$users]);
         else
             abort(403);
-        
+
     }
 
-    
+
     public function createUsers(Request $request){
         $hasPermission = hasPermission('users',1);
         if($hasPermission)
@@ -72,7 +72,7 @@ class UserController extends Controller
             'phone' => 'required|unique:users,phone,'.$user_id,
             'email' => 'required|email|unique:users,email,'.$user_id,
         ]);
-        
+
         $user = User::where('id', $user_id)->update(['name' => $request->uname, 'username' => $request->username, 'phone' => $request->phone, 'email' => $request->email]);
         if ($user) {
             return redirect('jpanel/users')->with('success', 'User has been updated!');
@@ -80,7 +80,7 @@ class UserController extends Controller
             return redirect('jpanel/users')->with('error', 'Something went wrong. Try again.');
         }
     }
-    
+
     public function viewUser($id){
         $user = User::find($id);
         $roles = $user->roles;
@@ -97,9 +97,9 @@ class UserController extends Controller
         $user = User::find($request->user_id);
         $roleModules= DB::table('role_module')->where('role_id', $request->role_id)->get();//get module list from role id from role_module table
         if($request->status=='1'){
-            
+
             $user->roles()->attach($request->role_id); // role add in user_role table
-            
+
             foreach ($roleModules as $roleModule) {
                 $module = $roleModule->module_id;
                 Permission::insert(['user_id' => $request->user_id,'module_id' => $module,'action_id' =>1]);//add  create permission in user_permission table
@@ -110,7 +110,7 @@ class UserController extends Controller
 
         }else{
             $user->roles()->detach($request->role_id); // role delete in user_role table
-            
+
             foreach ($roleModules as $roleModule) {
                 $module = $roleModule->module_id;
                 Permission::where('user_id', $request->user_id)->where('module_id', $module)->delete(); // Delete all permission for role module

@@ -21,7 +21,7 @@
     <div class="login-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-              <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+              <a href="../../index2.html" class="h1">{{env('APP_NAME')}}</a>
             </div>
             <div class="card-body">
               <p class="login-box-msg">You are only one step a way from your new password, recover your password now.</p>
@@ -78,7 +78,7 @@
                   <!-- /.col -->
                 </div>
               </form>
-        
+
               <p class="mt-3 mb-1">
                 <a href="{{ route('login') }}">Login</a>
               </p>

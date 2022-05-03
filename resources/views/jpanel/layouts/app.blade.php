@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 
@@ -45,7 +47,7 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                
+
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -88,7 +90,7 @@
             <a href="index3.html" class="brand-link">
                 <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">LaraAdmin</span>
+                <span class="brand-text font-weight-light">{{env('APP_NAME')}}</span>
             </a>
 
             <!-- Sidebar -->
@@ -133,7 +135,7 @@
                             </a>
                         </li>
                         @endif
-                        
+
                         <li class="nav-item {{ (request()->is('jpanel/category*')) ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ (request()->is('jpanel/category*')) ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-boxes"></i>
@@ -156,10 +158,52 @@
                                         <p>Category Add</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('list.brands') }}" class="nav-link {{ (request()->is('jpanel/brand')) ? 'active' : '' }}">
+                                        <i class="far fa-list-alt nav-icon"></i>
+                                        <p>Brand List</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('create.category') }}" class="nav-link {{ (request()->is('jpanel/brand/add')) ? 'active' : '' }}">
+                                        <i class="far fa-plus-square nav-icon"></i>
+                                        <p>Brand Add</p>
+                                    </a>
+                                </li>
+
                             </ul>
                             @endif
-                        </li> 
-                        
+                        </li>
+                        @if(hasAnyOnePermission('vendors','2'))
+                        <li class="nav-item {{ (request()->is('jpanel/vendor*')) ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link {{ (request()->is('jpanel/vendor*')) ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>
+                                    Vendor
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @if(hasPermission('vendors','2'))
+                                <li class="nav-item">
+                                    <a href="{{ route('list.vendors') }}" class="nav-link {{ (request()->is('jpanel/vendors')) ? 'active' : '' }}">
+                                        <i class="far fa-list-alt nav-icon"></i>
+                                        <p>Vendor List</p>
+                                    </a>
+                                </li>
+                                @endif
+                                @if(hasPermission('vendors','2'))
+                                <li class="nav-item">
+                                    <a href="{{ route('create.vendors') }}" class="nav-link {{ (request()->is('jpanel/vendor/add')) ? 'active' : '' }}">
+                                        <i class="far fa-plus-square nav-icon"></i>
+                                        <p>Vendor Add</p>
+                                    </a>
+                                </li>
+                                @endif
+                            </ul>
+                        </li>
+                        @endif
+
                         {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -807,21 +851,21 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-                        
+
                 @yield('content')
-            
+
         </div>
         <!-- /.content-wrapper -->
 
         <footer class="main-footer">
             <div class="float-right d-none d-sm-block text-danger">
-                <strong><span id='ct6' ></span></strong> 
+                <strong><span id='ct6' ></span></strong>
             </div>
             <strong>Copyright &copy; {{ now()->year }} <a href="https://mantratechinch.com">Mantra Tech.Inc</a></strong> All rights
-            reserved. 
+            reserved.
         </footer>
 
-        
+
     </div>
     <!-- ./wrapper -->
 
@@ -843,6 +887,8 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <!-- Sweet Alert js -->
     <script src="{{ asset('dist/js/sweetalert.min.js') }}"></script>
     <!-- AdminLTE App -->
